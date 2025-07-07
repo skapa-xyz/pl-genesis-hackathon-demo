@@ -1,0 +1,4 @@
+.env
+*.so
+node_modules/
+plugins/*.so

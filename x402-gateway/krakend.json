@@ -1,0 +1,107 @@
+{
+  "version": 3,
+  "name": "X402 Payment Gateway",
+  "port": 8080,
+  "plugin": {
+    "folder": "/etc/krakend/plugins/",
+    "pattern": ".so"
+  },
+  "timeout": "30s",
+  "cache_ttl": "0s",
+  "extra_config": {
+    "telemetry/logging": {
+      "level": "DEBUG",
+      "prefix": "[KRAKEND]",
+      "syslog": false,
+      "stdout": true
+    },
+    "plugin/http-server": {
+      "name": "x402-payment-gate",
+      "x402-payment-gate": {
+        "facilitator_url": "http://host.docker.internal:8080",
+        "backend_api_key": "483fbc80-e5c1-4fa5-b793-f1c94273544d",
+        "payment_header_name": "X-PAYMENT",
+        "auth_header_name": "X-API-KEY",
+        "payment_address": "0x14E0E1ad19e52980ca162FA1453C6222Ee961C09",
+        "max_amount_required": "1000000000000000000",
+        "network": "filecoin-calibration",
+        "description": "USD for Filecoin Community",
+        "asset": "0xCD928583440157eDfB744201cb69dEeBDEe62bb8",
+        "max_timeout_seconds": 300,
+        "mime_type": "application/json"
+      }
+    }
+  },
+  "endpoints": [
+    {
+      "endpoint": "/api/v1/{level1}",
+      "method": "GET",
+      "output_encoding": "no-op",
+      "input_headers": ["*"],
+      "input_query_strings": ["*"],
+      "backend": [
+        {
+          "url_pattern": "/api/v1/{level1}",
+          "encoding": "no-op",
+          "host": ["https://pro.weatherxm.com"]
+        }
+      ]
+    },
+    {
+      "endpoint": "/api/v1/{level1}/{level2}",
+      "method": "GET",
+      "output_encoding": "no-op",
+      "input_headers": ["*"],
+      "input_query_strings": ["*"],
+      "backend": [
+        {
+          "url_pattern": "/api/v1/{level1}/{level2}",
+          "encoding": "no-op",
+          "host": ["https://pro.weatherxm.com"]
+        }
+      ]
+    },
+    {
+      "endpoint": "/api/v1/{level1}/{level2}/{level3}",
+      "method": "GET",
+      "output_encoding": "no-op",
+      "input_headers": ["*"],
+      "input_query_strings": ["*"],
+      "backend": [
+        {
+          "url_pattern": "/api/v1/{level1}/{level2}/{level3}",
+          "encoding": "no-op",
+          "host": ["https://pro.weatherxm.com"]
+        }
+      ]
+    },
+    {
+      "endpoint": "/api/v1/{level1}",
+      "method": "POST",
+      "output_encoding": "no-op",
+      "input_headers": ["*"],
+      "input_query_strings": ["*"],
+      "backend": [
+        {
+          "url_pattern": "/api/v1/{level1}",
+          "encoding": "no-op",
+          "host": ["https://pro.weatherxm.com"]
+        }
+      ]
+    },
+    {
+      "endpoint": "/api/v1/{level1}/{level2}",
+      "method": "POST",
+      "output_encoding": "no-op",
+      "input_headers": ["*"],
+      "input_query_strings": ["*"],
+      "backend": [
+        {
+          "url_pattern": "/api/v1/{level1}/{level2}",
+          "encoding": "no-op",
+          "host": ["https://pro.weatherxm.com"]
+        }
+      ]
+    }
+  ]
+}

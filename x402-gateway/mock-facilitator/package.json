@@ -1,0 +1,12 @@
+{
+  "name": "mock-x402-facilitator",
+  "version": "1.0.0",
+  "description": "Mock x402 facilitator for testing payment validation",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}

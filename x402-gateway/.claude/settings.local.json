@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(./build-plugin.sh:*)",
+      "Bash(./test-gateway.sh:*)",
+      "Bash(cp:*)",
+      "Bash(ls:*)",
+      "Bash(mv:*)"
+    ],
+    "deny": []
+  }
+}

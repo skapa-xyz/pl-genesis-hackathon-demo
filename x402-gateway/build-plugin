@@ -1,0 +1,24 @@
+#!/bin/bash
+
+# Build script for x402 KrakenD plugin
+
+echo "Building x402-payment-gate plugin..."
+
+# Change to the plugins directory
+cd "$(dirname "$0")/plugins"
+
+# Build the plugin using the official KrakenD builder
+# Let Docker use the native platform (ARM64 on Apple Silicon)
+echo "Building plugin for native platform..."
+docker run --rm -v "$PWD:/app" -w /app \
+  krakend/builder:latest \
+  go build -buildmode=plugin -o x402-payment-gate.so .
+
+if [ $? -eq 0 ]; then
+    echo "Plugin built successfully: x402-payment-gate.so"
+    ls -la x402-payment-gate.so
+    file x402-payment-gate.so
+else
+    echo "Plugin build failed!"
+    exit 1
+fi

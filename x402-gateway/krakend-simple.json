@@ -1,0 +1,44 @@
+{
+  "version": 3,
+  "timeout": "5000ms",
+  "cache_ttl": "0s",
+  "endpoints": [
+    {
+      "endpoint": "/api/v1/{path}",
+      "method": "GET",
+      "output_encoding": "no-op",
+      "input_headers": ["*"],
+      "input_query_strings": ["*"],
+      "backend": [
+        {
+          "url_pattern": "/api/v1/{path}",
+          "encoding": "no-op",
+          "host": ["https://pro.weatherxm.com"],
+          "extra_config": {
+            "modifier/martian": {
+              "header.Modifier": {
+                "scope": ["request"],
+                "name": "X-API-KEY",
+                "value": "${WEATHERXM_API_KEY}"
+              }
+            }
+          }
+        }
+      ],
+      "extra_config": {
+        "validation/cel": [
+          {
+            "check_expr": "has(req_headers['X-Payment']) || has(req_headers['x-payment'])",
+            "error": {
+              "status": 402,
+              "body": "{\"error\":\"Payment Required\",\"paymentRequirements\":{\"scheme\":\"exact\",\"network\":\"${NETWORK}\",\"maxAmountRequired\":\"${MAX_AMOUNT_REQUIRED}\",\"payTo\":\"${PAYMENT_ADDRESS}\",\"asset\":\"${ASSET_ADDRESS}\",\"maxTimeoutSeconds\":300}}",
+              "headers": {
+                "Content-Type": ["application/json"]
+              }
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
